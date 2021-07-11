@@ -1,6 +1,6 @@
 local AddonName, Addon = ...
 
-LootingTable = {
+WishlistTable = {
     ['Chestguard of the Fallen Hero'] = {
         [1] = 'Darkmalady',
         [2] = 'Legion'
@@ -542,6 +542,41 @@ LootingTable = {
     }
 }
 
+PrioTable = {
+    ["Nathrezim Mindblade"] = {
+        [1] = 'Darkmalady',
+        [2] = 'Evilgenius',
+        [3] = 'Fahrenheit',
+        [4] = 'Magdevil'
+    },
+    ["Warglaive of Azzinoth (mainhand)"] = {
+        [1] = 'Ist',
+        [2] = 'Shurrik'
+    },
+    ["Eye of Magtheridon"] = {
+        [1] = 'Magelingz'
+    },
+    ["Warglaive of Azzinoth (offhand)"] = {
+        [1] = 'Ist',
+        [2] = 'Shurrik'
+    },
+    ["Dragonspine Trophy"] = {
+        [1] = 'Ist',
+        [2] = 'Riflemate',
+        [3] = 'Shurrik'
+    },
+    ["Bloodmaw Magus-Blade"] = {
+        [1] = 'Evilgenius',
+        [2] = 'Magdevil'
+    },
+    ["Wool Cloth"] = {
+        [1] = 'Blink'
+    },
+    ["Linen Cloth"] = {
+        [1] = 'Fy'
+    }
+}
+
 -- local file = io.open('all-loot-export.csv');
 -- transform data, reform by itemName
 -- filtered by type
@@ -576,20 +611,6 @@ function getListedUserByItemName(data, itemName)
     return users
 end
 
-function dump(o)
-    if type(o) == 'table' then
-        local s = '{ '
-        for k, v in pairs(o) do
-            if type(k) ~= 'number' then
-                k = '"' .. k .. '"'
-            end
-            s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
-        end
-        return s .. '} '
-    else
-        return tostring(o)
-    end
-end
+Addon.wishlistTable = WishlistTable
 
-Addon.lootingTable = LootingTable
-
+Addon.prioTable = PrioTable

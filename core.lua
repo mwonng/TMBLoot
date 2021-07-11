@@ -1,55 +1,32 @@
 local AddonName, Addon = ...
 
-DEFAULT_CHAT_FRAME:AddMessage("HelloWorld is Loaded!", 0.0, 1.0, 0.0)
+-- this data is manually update now
+wishlistTable = Addon.wishlistTable
+prioTable = Addon.prioTable
 
-lootingTable = Addon.lootingTable
+lootSlotIsItem = Addon.F.lootSlotIsItem
+getCadidatesForItem = Addon.F.getCadidatesForItem
 
 function announce(self, event, ...)
     local loots = GetLootInfo()
-    local linkstext
     for index = 1, GetNumLootItems() do
-        local item
         if (lootSlotIsItem(loots[index])) then
             local itemName = loots[index]["item"]
             local itemLink = GetLootSlotLink(index);
-            local candidates = getCadidatesForItem(itemName)
-            SendChatMessage(itemLink .. candidates, "SAY", nil, nil)
-        end
-    end
-end
 
--- 0 = Poor, 1 = Common, 2 = Uncommon, 3 = Rare, 4 = Epic, 5 = Legendary, 6 = Artifact
-function lootSlotIsItem(itemInfo)
-    return itemInfo.quality > 0
-end
-
-function getCadidatesForItem(itemName)
-    if (lootingTable[itemName] ~= nil) then
-        local candidatesString = ""
-        for i = 1, #lootingTable[itemName] do
-            candidatesString = candidatesString .. lootingTable[itemName][i]
-            if (i ~= #lootingTable[itemName]) then
-                candidatesString = candidatesString .. ", "
+            -- announce prio-list for the item
+            local prioCandidates = getCadidatesForItem(prioTable, itemName, 'prio-list')
+            if prioCandidates ~= nil then
+                SendChatMessage(itemLink .. prioCandidates, "PARTY", nil, nil)
             end
-        end
-        return " listed by " .. candidatesString
-    end
-    return " no one listed."
-end
 
--- test
-function dump(o)
-    if type(o) == 'table' then
-        local s = '{ '
-        for k, v in pairs(o) do
-            if type(k) ~= 'number' then
-                k = '"' .. k .. '"'
+            -- announce wishlist for the item
+            local wishlistCandidates = getCadidatesForItem(wishlistTable, itemName, 'wishlist')
+            if wishlistCandidates ~= nil then
+                SendChatMessage(itemLink .. wishlistCandidates, "PARTY", nil, nil)
             end
-            s = s .. '[' .. k .. '] = ' .. dump(v) .. ','
+
         end
-        return s .. '} '
-    else
-        return tostring(o)
     end
 end
 

@@ -52,7 +52,26 @@ local Defaults = {
 --------------------------
 --[[	Options Panel	]] --------------------------
 local Changes = SyncOptions({}, Options);
-local Panel = CreateFrame("Frame");
+
+local Panel = CreateFrame("Frame", nil, nil, BackdropTemplateMixin and "BackdropTemplate" or nil)
+Panel:SetWidth(600)
+Panel:SetHeight(400)
+Panel:SetPoint("TOPLEFT", f, 25, -75)
+Panel:SetBackdrop({
+    bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+    edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+    tile = true,
+    tileEdge = true,
+    tileSize = 16,
+    edgeSize = 16,
+    insets = {
+        left = -2,
+        right = -2,
+        top = -2,
+        bottom = -2
+    }
+})
+Panel:SetBackdropColor(0, 0, 0, 0)
 
 do
     Panel:Hide();
@@ -114,24 +133,25 @@ do --	function BuildButton(tbl,var,txt,x,y)
     end
 end
 
-do --	LinkButtons
-    local list = {};
-    for i, j in pairs(Defaults.Links) do
-        list[#list + 1] = i;
-    end
-    table.sort(list);
-    for i, j in ipairs(list) do
-        BuildButton(Changes.Links, j, nil, 24, -i * 24 - 24);
-    end
-end
+local s = CreateFrame("ScrollFrame", nil, Panel, "UIPanelScrollFrameTemplate")
+s:SetWidth(560)
+s:SetHeight(425)
+s:SetPoint("TOPLEFT", 10, -40)
 
-BuildButton(Changes.Icons, "Race", "Race/Gender", 128, -96);
-BuildButton(Changes.Icons, "Class", nil, 256, -96);
+local edit = CreateFrame("EditBox", nil, s)
+s.cursorOffset = 0
+edit:SetWidth(550)
+s:SetScrollChild(edit)
+edit:SetAutoFocus(false)
+edit:EnableMouse(true)
+edit:SetHeight(360)
+edit:SetMaxLetters(99999999)
+edit:SetMultiLine(true)
+edit:SetFontObject(GameTooltipText)
 
-local PawnIsLoaded = IsAddOnLoaded("Pawn");
-local PawnButton = BuildButton(Changes, "PawnIntegration", "Pawn Integration |cff" ..
-    (PawnIsLoaded and "00ff00" or "ff0000") .. "(Requires Pawn)|r", 24, -200);
-if not PawnIsLoaded then
-    PawnButton:Disable();
-    PawnButton.text:SetTextColor(0.5, 0.5, 0.5);
-end
+-- textArea = CreateFrame("ScrollFrame", nil, Panel, "UIPanelScrollFrameCodeTemplate");
+-- textArea:SetPoint("TOPLEFT", 40, -400);
+-- textArea:SetSize(300, -400);
+-- textArea:SetMultiLine(true)
+-- textArea:SetAutoFocus(false)
+

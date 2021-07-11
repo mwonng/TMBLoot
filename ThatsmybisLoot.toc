@@ -4,6 +4,7 @@
 ## Version: 2.5.4
 ##SavedVariables: LootingTable
 
+func.lua
 looting.lua
 core.lua
 config.lua
