@@ -1,8 +1,7 @@
-<Scripts>
-	<OnLoad>
-		somename_OnLoad();
-	</OnLoad>
-	<OnEvent>
-		somename_OnEvent(event);
-	</OnEvent>
-</Scripts>
+<Frame name="SC_ChaChingGUIFrame">
+    <Scripts>
+        <OnLoad>
+            SC_ChaChingPanel_OnLoad(self);
+        </OnLoad>
+    </Scripts>
+</Frame>

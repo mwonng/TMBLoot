@@ -2,7 +2,9 @@
 ## Title: ThatsmybisLoot
 ## Author: Blink
 ## Version: 2.5.4
+##SavedVariables: LootingTable
 
 looting.lua
 core.lua
+config.lua
 gui.xml
