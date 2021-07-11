@@ -1,0 +1,8 @@
+## Interface: 20501
+## Title: ThatsmybisLoot
+## Author: Blink
+## Version: 2.5.4
+
+looting.lua
+core.lua
+gui.xml

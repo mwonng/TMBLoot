@@ -1,0 +1,8 @@
+<Scripts>
+	<OnLoad>
+		somename_OnLoad();
+	</OnLoad>
+	<OnEvent>
+		somename_OnEvent(event);
+	</OnEvent>
+</Scripts>
