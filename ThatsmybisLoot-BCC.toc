@@ -8,4 +8,5 @@ func.lua
 looting.lua
 core.lua
 config.lua
+init.lua
 gui.xml

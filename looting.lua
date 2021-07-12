@@ -1,4 +1,4 @@
-local AddonName, Addon = ...
+local _, Addon = ...
 
 WishlistTable = {
     ['Chestguard of the Fallen Hero'] = {
@@ -577,29 +577,6 @@ PrioTable = {
     }
 }
 
--- local file = io.open('all-loot-export.csv');
--- transform data, reform by itemName
--- filtered by type
--- function transformByItemName(recordType)
---     local tableByItemName = {}
---     for line in io.lines('all-loot-export.csv') do -- load file name
---         local type, raid_group_name, member_name, character_name, character_class, character_is_alt,
---             character_inactive_at, character_note, sort_order, item_name, item_id, is_offspec, note, received_at,
---             import_id, item_note, item_prio_note, item_tier, item_tier_label, created_at, updated_at = line:match(
---             "%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-),%s*(.-)")
---         if (type == recordType and character_class ~= nil) then
---             itemNameWithoutDoubleQuote = string.gsub(item_name, '"', "")
---             if (tableByItemName[itemNameWithoutDoubleQuote] == nil) then
---                 tableByItemName[itemNameWithoutDoubleQuote] = {character_name}
---             else
---                 table.insert(tableByItemName[itemNameWithoutDoubleQuote], character_name)
---             end
---             -- print(character_name .. " " .. character_class .. " - " .. item_name)
---         end
---     end
---     return tableByItemName;
--- end
-
 -- will return table of user:
 -- { [1] = Blink,[2] = Darkmalady,}
 function getListedUserByItemName(data, itemName)
@@ -614,3 +591,4 @@ end
 Addon.wishlistTable = WishlistTable
 
 Addon.prioTable = PrioTable
+Addon.transformByItemName = transformByItemName
