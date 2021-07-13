@@ -1,12 +1,10 @@
 ## Interface: 20501
 ## Title: ThatsmybisLoot
 ## Author: Blink
-## Version: 2.5.4
+## Version: 0.0.1
 ##SavedVariables: LootingTable
 
 func.lua
-looting.lua
 core.lua
 config.lua
 init.lua
-gui.xml

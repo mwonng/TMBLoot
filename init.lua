@@ -4,36 +4,28 @@ local _, Addon = ...; -- Namespace
 -- Custom Slash Command
 --------------------------------------
 Addon.commands = {
-    ["config"] = Addon.Config.Toggle, -- this is a function (no knowledge of Config object)
+    ["show"] = Addon.Config.Toggle, -- this is a function (no knowledge of Config object)
 
     ["help"] = function()
         print(" ");
         Addon:Print("List of slash commands:")
-        Addon:Print("|cff00cc66/at config|r - shows config menu");
-        Addon:Print("|cff00cc66/at help|r - shows help info");
+        Addon:Print("|cff00cc66/tl show|r - shows config menu");
+        Addon:Print("|cff00cc66/tl help|r - shows help info");
         print(" ");
-    end,
-
-    ["example"] = {
-        ["test"] = function(...)
-            Addon:Print("My Value:", tostringall(...));
-        end
-    }
+    end
 };
 
 local function HandleSlashCommands(str)
     if (#str == 0) then
         -- User just entered "/at" with no additional args.
-        -- Addon.commands.help();
-        Addon.commands.config();
+        Addon.commands.help();
+        -- Addon.commands.config();
         return;
     end
 
     local args = {};
     for _, arg in ipairs({string.split(' ', str)}) do
-        if (#arg > 0) then
-            table.insert(args, arg);
-        end
+        if (#arg > 0) then table.insert(args, arg); end
     end
 
     local path = Addon.commands; -- required for updating found table.
@@ -60,43 +52,24 @@ end
 
 function Addon:Print(...)
     local hex = select(4, self.Config:GetThemeColor());
-    local prefix = string.format("|cff%s%s|r", hex:upper(), "Aura Tracker:");
+    local prefix = string.format("|cff%s%s|r", hex:upper(), "TMB Loot:");
     DEFAULT_CHAT_FRAME:AddMessage(string.join(" ", prefix, ...));
 end
 
 -- WARNING: self automatically becomes events frame!
 function Addon:init(event, name)
-    if (name ~= "ThatsmybisLoot") then
-        return
-    end
+    if (name ~= "ThatsmybisLoot") then return end
 
     -- allows using left and right buttons to move through chat 'edit' box
     for i = 1, NUM_CHAT_WINDOWS do
         _G["ChatFrame" .. i .. "EditBox"]:SetAltArrowKeyMode(false);
     end
 
-    ----------------------------------
-    -- Register Slash Commands!
-    ----------------------------------
-
-    SLASH_FRAMESTK1 = "/fs"; -- new slash command for showing framestack tool
-    SlashCmdList.FRAMESTK = function()
-        LoadAddOn("Blizzard_DebugTools");
-        FrameStackTooltip_Toggle();
-    end
-
     SLASH_TMBLoot1 = "/tl";
+    SLASH_TMBLoot2 = "/tmbloot";
     SlashCmdList.TMBLoot = HandleSlashCommands;
 
-    Addon:Print("Welcome back", UnitName("player") .. "!");
-
-    local source = LootingTable.paste
-
-    if LootingTable.source ~= nil then
-        LootingTable.prio = Addon.F.transformByItemName(source, 'prio')
-        LootingTable.wishlist = Addon.F.transformByItemName(source, 'wishlist')
-    end
-
+    Addon:Print("Thanks for supporting TMBList", UnitName("player") .. "!");
 end
 
 local events = CreateFrame("Frame");

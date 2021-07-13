@@ -1,8 +1,5 @@
 local _, Addon = ...;
 
--- local Title = select(2, GetAddOnInfo(Name)):gsub("%s*v?[%d%.]+$", "");
--- local Version = GetAddOnMetadata(Name, "Version");
--- local Author = GetAddOnMetadata(Name, "Author");
 Addon.Config = {}
 local Config = Addon.Config;
 local UIConfig;
@@ -26,6 +23,7 @@ function Config:GetThemeColor()
     return c.r, c.g, c.b, c.hex;
 end
 
+-- Top menu title bar
 function Config:CreateButton(point, relativeFrame, relativePoint, yOffset, text)
     local btn = CreateFrame("Button", nil, UIConfig, "GameMenuButtonTemplate");
     btn:SetPoint(point, relativeFrame, relativePoint, 0, yOffset);
@@ -36,63 +34,11 @@ function Config:CreateButton(point, relativeFrame, relativePoint, yOffset, text)
     return btn;
 end
 
---------------------------
---[[	Options Panel	]] --------------------------
--- local Changes = SyncOptions({}, Options);
-
--- local Panel = CreateFrame("Frame")
-
--- do
---     Panel:Hide();
-
---     Panel.name = "TMBLoot";
---     InterfaceOptions_AddCategory(Panel); --	Panel Registration
---     Addon.OptionsPanel = Panel;
-
---     -- do
---     --     local title = Panel:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge");
---     --     title:SetPoint("TOP", 0, -12);
---     --     title:SetText(Title);
-
---     --     local author = Panel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall");
---     --     author:SetPoint("TOP", title, "BOTTOM", 0, 0);
---     --     author:SetTextColor(1, 0.5, 0.25);
---     --     author:SetText("by " .. Author);
-
---     --     local ver = Panel:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall");
---     --     ver:SetPoint("TOPLEFT", title, "TOPRIGHT", 4, 0);
---     --     ver:SetTextColor(0.5, 0.5, 0.5);
---     --     ver:SetText("v" .. Version);
---     -- end
-
---     do
---         local b = CreateFrame("Button", nil, Panel, "GameMenuButtonTemplate")
---         b:SetWidth(200)
---         b:SetHeight(25)
---         b:SetPoint("TOPLEFT", 15, -80)
---         b:SetText("Open TMBLoot")
---         b:SetScript("OnClick", function()
---             Config:CreateMenu()
---         end)
---     end
-
--- end
-
--- Panel:RegisterEvent("ADDON_LOADED");
--- Panel:SetScript("OnEvent", function(self, event, ...)
---     if event == "ADDON_LOADED" and (...) == Name then
---         -- ChatLinkIcons_Options = SyncOptions(Options, ChatLinkIcons_Options, true);
---         -- SyncOptions(Changes, Options, true);
-
---         self:UnregisterEvent(event);
---     end
--- end);
-
--- SLASH_TmbLoot1 = '/tmbloot'
--- SlashCmdList.TmbLoot = Config:Toggle()
-
+-- Main menu bar
 function Config:CreateMenu()
-    local UIConfig = CreateFrame("Frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil)
+    local UIConfig = CreateFrame("Frame", nil, UIParent,
+                                 BackdropTemplateMixin and "BackdropTemplate" or
+                                     nil)
     UIConfig:SetWidth(650)
     UIConfig:SetHeight(600)
     UIConfig:SetBackdrop({
@@ -101,12 +47,7 @@ function Config:CreateMenu()
         tile = true,
         tileSize = 32,
         edgeSize = 32,
-        insets = {
-            left = 8,
-            right = 8,
-            top = 10,
-            bottom = 10
-        }
+        insets = {left = 8, right = 8, top = 10, bottom = 10}
     })
 
     UIConfig:SetBackdropColor(0, 0, 0)
@@ -129,13 +70,15 @@ function Config:CreateMenu()
     end
 
     do
-        local t = UIConfig:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+        local t = UIConfig:CreateFontString(nil, "ARTWORK",
+                                            "GameFontNormalLarge")
         t:SetText("TMBList")
         t:SetPoint("TOP", UIConfig.texture, 0, -14)
     end
 
     -- tooltip style container
-    local t = CreateFrame("Frame", nil, UIConfig, BackdropTemplateMixin and "BackdropTemplate" or nil)
+    local t = CreateFrame("Frame", nil, UIConfig,
+                          BackdropTemplateMixin and "BackdropTemplate" or nil)
     t:SetWidth(600)
     t:SetHeight(450)
     t:SetPoint("TOPLEFT", UIConfig, 25, -40)
@@ -146,12 +89,7 @@ function Config:CreateMenu()
         tileEdge = true,
         tileSize = 16,
         edgeSize = 16,
-        insets = {
-            left = 2,
-            right = 2,
-            top = 2,
-            bottom = 2
-        }
+        insets = {left = 2, right = 2, top = 2, bottom = 2}
     })
     t:SetBackdropColor(0, 0, 0, 1)
 
@@ -166,46 +104,45 @@ function Config:CreateMenu()
     e:SetFontObject(ChatFontNormal)
     e:SetWidth(560)
     e:SetScript("OnEscapePressed", e.ClearFocus)
-    e:SetScript("OnTextSet", e.HighlightText)
-    e:SetScript("OnMouseUp", e.HighlightText)
+    -- e:SetScript("OnMouseUp", e.HighlightText)
     e:SetAutoFocus(false)
     s:SetScrollChild(e)
+
     if LootingTable.paste == nil then
         e:SetText("past your csv here")
     else
         e:SetText(LootingTable.paste)
     end
 
-    -- -- TextField Button:
-    -- UIConfig.textarea = CreateFrame("EditBox", "TMBLootEditBox", UIConfig)
-    -- UIConfig.textarea:SetPoint("TOPLEFT", UIConfig.child, "TOP", 10, 0)
-    -- UIConfig.textarea:SetSize(280, 300)
-    -- UIConfig.textarea:SetText("Paste the list here.");
-    -- UIConfig.textarea:SetMultiLine(true)
-    -- UIConfig.textarea:SetAutoFocus(false);
-    -- UIConfig.textarea:SetMaxLetters(999999)
-
-    -- Panel Button:
-    UIConfig.saveButton = CreateFrame("Button", nil, UIConfig, "GameMenuButtonTemplate")
+    -- Panel Save Button:
+    UIConfig.saveButton = CreateFrame("Button", nil, UIConfig,
+                                      "GameMenuButtonTemplate")
     UIConfig.saveButton:SetPoint("BOTTOM", UIConfig, "BOTTOMRIGHT", -100, 30)
     UIConfig.saveButton:SetSize(120, 30)
     UIConfig.saveButton:SetText("Save")
     UIConfig.saveButton:SetScript("OnClick", function()
-        LootingTable = {}
         LootingTable.paste = e:GetText()
         if LootingTable.paste ~= nil then
-            LootingTable.prio = Addon.F.transformByItemName(LootingTable.paste, 'prio')
-            LootingTable.wishlist = Addon.F.transformByItemName(LootingTable.paste, 'wishlist')
+            LootingTable.prio = Addon.F.transformByItemName(LootingTable.paste,
+                                                            'prio')
+            LootingTable.wishlist = Addon.F.transformByItemName(
+                                        LootingTable.paste, 'wishlist')
         end
         UIConfig:Hide()
     end)
     UIConfig.saveButton:SetNormalFontObject("GameFontNormalLarge")
     UIConfig.saveButton:SetHighlightFontObject("GameFontHighLightLarge")
 
+    -- Panel Cancel Button:
+    UIConfig.cancelButton = CreateFrame("Button", nil, UIConfig,
+                                        "GameMenuButtonTemplate")
+    UIConfig.cancelButton:SetPoint("BOTTOM", UIConfig, "BOTTOMLEFT", 100, 30)
+    UIConfig.cancelButton:SetSize(120, 30)
+    UIConfig.cancelButton:SetText("Close")
+    UIConfig.cancelButton:SetScript("OnClick", function() UIConfig:Hide() end)
+    UIConfig.cancelButton:SetNormalFontObject("GameFontNormalLarge")
+    UIConfig.cancelButton:SetHighlightFontObject("GameFontHighLightLarge")
+
     UIConfig:Hide()
     return UIConfig
-end
-
-function MyGlobalFuncationName()
-
 end
