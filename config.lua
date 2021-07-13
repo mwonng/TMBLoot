@@ -72,7 +72,7 @@ function Config:CreateMenu()
     do
         local t = UIConfig:CreateFontString(nil, "ARTWORK",
                                             "GameFontNormalLarge")
-        t:SetText("TMBList")
+        t:SetText("TMBLoot")
         t:SetPoint("TOP", UIConfig.texture, 0, -14)
     end
 

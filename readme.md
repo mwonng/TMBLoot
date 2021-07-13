@@ -4,6 +4,8 @@ This is a WoW classic plugin for [That's my bis](https://thatsmybis.com/).
 
 This plugin can announce the prio and wishlist when looting after you import from [thatsmybis](https://thatsmybis.com/)
 
+**NOTE**: only works on WoW BCC
+
 ## How to setup:
 
 1. enter game use `/tl show` or `tmbloot show`
