@@ -3,7 +3,7 @@ local _, Addon = ...
 lootSlotIsItem = Addon.F.lootSlotIsItem
 getCadidatesForItem = Addon.F.getCadidatesForItem
 
-function announce(self, event, ...)
+local function announce(self, event, ...)
     local wishlistTable = LootingTable.wishlist
     local prioTable = LootingTable.prio
     local channel = nil

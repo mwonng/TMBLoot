@@ -60,11 +60,6 @@ end
 function Addon:init(event, name)
     if (name ~= "ThatsmybisLoot") then return end
 
-    -- allows using left and right buttons to move through chat 'edit' box
-    for i = 1, NUM_CHAT_WINDOWS do
-        _G["ChatFrame" .. i .. "EditBox"]:SetAltArrowKeyMode(false);
-    end
-
     SLASH_TMBLoot1 = "/tl";
     SLASH_TMBLoot2 = "/tmbloot";
     SlashCmdList.TMBLoot = HandleSlashCommands;
