@@ -1,7 +1,7 @@
 ## Interface: 20501
-## Title: ThatsmybisLoot
+## Title: TMBLoot
 ## Author: Blink
-## Version: 0.0.1
+## Version: 0.1.2
 ##SavedVariables: LootingTable
 
 func.lua
