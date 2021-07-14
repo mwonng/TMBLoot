@@ -108,7 +108,8 @@ function Config:CreateMenu()
     e:SetAutoFocus(false)
     s:SetScrollChild(e)
 
-    if LootingTable.paste == nil then
+    if LootingTable == nil then
+        LootingTable = {}
         e:SetText("past your csv here")
     else
         e:SetText(LootingTable.paste)

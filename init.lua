@@ -58,13 +58,13 @@ end
 
 -- WARNING: self automatically becomes events frame!
 function Addon:init(event, name)
-    if (name ~= "ThatsmybisLoot") then return end
+    if (name ~= "TMBLoot") then return end
 
     SLASH_TMBLoot1 = "/tl";
     SLASH_TMBLoot2 = "/tmbloot";
     SlashCmdList.TMBLoot = HandleSlashCommands;
 
-    Addon:Print("Thanks for supporting TMBList", UnitName("player") .. "!");
+    Addon:Print("Thanks for supporting TMBLoot", UnitName("player") .. "!");
 end
 
 local events = CreateFrame("Frame");
