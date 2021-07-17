@@ -4,8 +4,6 @@ lootSlotIsItem = Addon.F.lootSlotIsItem
 getCadidatesForItem = Addon.F.getCadidatesForItem
 
 local function announce(self, event, ...)
-    local initConfig = LootingTable
-
     if IsInGroup() then channel = 'PARTY' end
     if IsInRaid() then channel = 'RAID' end
 

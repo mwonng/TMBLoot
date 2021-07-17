@@ -4,7 +4,7 @@ This is a WoW classic plugin for [That's my bis](https://thatsmybis.com/).
 
 This plugin can announce the prio and wishlist when looting after you import from [thatsmybis](https://thatsmybis.com/)
 
-**NOTE**: only works on WoW BCC
+**NOTE**: only works on WoW BCC, and this addon currently under my guild wide test, probably not suitable for you, but if you have a try, please let me know any issue. sorry for the convenience.
 
 ## How to setup:
 
@@ -16,6 +16,14 @@ This plugin can announce the prio and wishlist when looting after you import fro
 The announcement will only send when you looting.
 
 ## Changelog
+
+## Pending
+
+- fix loot error while play looting without any config setup.
+
+### v0.1.2
+
+- firs release for guild test
 
 ### v0.0.1
 
