@@ -17,11 +17,13 @@ local function announce(self, event, ...)
         local loots = GetLootInfo()
         for index = 1, GetNumLootItems() do
             if (lootSlotIsItem(loots[index])) then
-                local itemName = loots[index]["item"]
                 local itemLink = GetLootSlotLink(index);
 
+                -- get itemId by itemLink
+                local itemId = string.match(itemLink, "item:(%d+)")
+
                 -- announce prio-list for the item
-                local prioCandidates = getCadidatesForItem(prioTable, itemName,
+                local prioCandidates = getCadidatesForItem(prioTable, itemId,
                                                            'prio-list')
                 if prioCandidates ~= nil then
                     SendChatMessage("----- " .. itemLink .. " Prio List -----",
@@ -31,7 +33,7 @@ local function announce(self, event, ...)
 
                 -- announce wishlist for the item
                 local wishlistCandidates =
-                    getCadidatesForItem(wishlistTable, itemName, 'wishlist')
+                    getCadidatesForItem(wishlistTable, itemId, 'wishlist')
                 if wishlistCandidates ~= nil then
                     SendChatMessage("----- " .. itemLink .. " Wishlist -----",
                                     channel, nil, nil)
